@@ -1,2 +1,7 @@
+openai
+python-dotenv
 pyyaml
 feedparser
+beautifulsoup4
+sendgrid
+requests
