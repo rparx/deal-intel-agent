@@ -1,0 +1,16 @@
+industries:
+  - name: Radiopharma
+    keywords:
+      - radiopharma
+      - radiopharmaceutical
+      - theranostics
+      - isotope
+      - radioligand
+      - nuclear medicine
+      - lutetium
+      - actinium
+      - Novartis
+      - Lantheus
+    sources:
+      - https://www.fiercepharma.com/rss/xml
+      - https://www.fiercebiotech.com/rss/xml
