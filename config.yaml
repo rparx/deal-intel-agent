@@ -1,16 +1,201 @@
-industries:
-  - name: Radiopharma
+recipients:
+  - rpars27@gmail.com
+
+watchlists:
+  - name: AI Roll-Ups
+    source_type: news
     keywords:
-      - radiopharma
-      - radiopharmaceutical
-      - theranostics
-      - isotope
-      - radioligand
-      - nuclear medicine
-      - lutetium
-      - actinium
-      - Novartis
-      - Lantheus
+      - acquisition
+      - add-on acquisition
+      - buy-and-build
+      - platform investment
+      - AI roll-up
+      - AI-enabled services
+      - AI-native services
+      - holding company
+      - services consolidation
+      - workflow automation
+      - margin expansion
+    companies:
+      - Eudia
+      - Accrual
+      - Crete
+      - Savvy Wealth
+      - Long Lake
+      - Crescendo
+      - Hilbert
     sources:
-      - https://www.fiercepharma.com/rss/xml
-      - https://www.fiercebiotech.com/rss/xml
+      - https://www.ai-rollup.fyi/companies
+      - https://www.ai-rollup.fyi/essays
+
+  - name: Institutional AI
+    source_type: thought_leadership
+    keywords:
+      - institutional AI
+      - system of action
+      - agentic enterprise
+      - workflow automation
+      - operating leverage
+      - productivity gain
+      - margin expansion
+      - revenue per employee
+      - AI transformation
+      - organizational redesign
+    companies:
+      - General Catalyst
+      - Thrive Capital
+      - Slow Ventures
+      - Andreessen Horowitz
+      - 8VC
+      - Accenture
+    sources:
+      - https://www.a16z.news/feed
+      - https://99d.substack.com/feed
+      - https://www.latent.space/feed
+
+  - name: Travel Management
+    source_type: news
+    keywords:
+      - travel management company
+      - TMC
+      - corporate travel
+      - travel automation
+      - expense management
+      - travel booking workflow
+      - managed travel
+      - business travel
+      - booking automation
+    companies:
+      - Navan
+      - TravelPerk
+      - Direct Travel
+      - BCD Travel
+      - CWT
+      - AmTrav
+      - FCM Travel
+    sources:
+      - https://www.phocuswire.com/RSS
+
+  - name: Freight & Customs
+    source_type: news
+    keywords:
+      - customs brokerage
+      - freight forwarding
+      - import brokerage
+      - customs clearance
+      - trade compliance
+      - logistics automation
+      - freight automation
+      - shipment visibility
+      - freight brokerage
+    companies:
+      - Flexport
+      - CH Robinson
+      - Expeditors
+      - DSV
+      - Kuehne + Nagel
+      - Radiant Logistics
+    sources:
+      - https://www.freightwaves.com/feed
+
+  - name: Healthcare RCM
+    source_type: news
+    keywords:
+      - revenue cycle management
+      - RCM
+      - medical coding
+      - prior authorization
+      - denials management
+      - claims processing
+      - payment integrity
+      - healthcare automation
+      - clinical documentation
+      - patient access
+    companies:
+      - Waystar
+      - R1
+      - AKASA
+      - FinThrive
+      - Ensemble
+      - Access Healthcare
+      - SmarterDx
+    sources:
+      - https://www.healthcaredive.com/feeds/news/
+      - https://www.fiercehealthcare.com/rss/xml
+
+  - name: Wholesale Distribution
+    source_type: news
+    keywords:
+      - wholesale distribution
+      - inventory optimization
+      - procurement automation
+      - order processing
+      - inside sales automation
+      - warehouse operations
+      - pricing optimization
+      - distributor automation
+      - ERP automation
+    companies:
+      - Ferguson
+      - Grainger
+      - Fastenal
+      - Sonepar
+      - Watsco
+      - SiteOne
+    sources:
+      - https://www.supplychaindive.com/feeds/news/
+
+  - name: Freight Audit & Payment
+    source_type: news
+    keywords:
+      - freight audit
+      - freight payment
+      - transportation spend
+      - invoice audit
+      - carrier reconciliation
+      - logistics finance
+      - freight invoice
+      - freight billing
+      - payment automation
+    companies:
+      - Cass Information Systems
+      - Trax
+      - ControlPay
+      - nVision Global
+      - Data2Logistics
+    sources:
+      - https://www.freightwaves.com/feed
+      - https://www.supplychaindive.com/feeds/news/
+
+  - name: Radio & Audio Media
+    source_type: news
+    keywords:
+      - radio operations
+      - audio advertising
+      - broadcast automation
+      - programmatic audio
+      - ad trafficking
+      - audio production
+      - local media
+      - radio advertising
+      - sales automation
+    companies:
+      - iHeartMedia
+      - Audacy
+      - Cumulus
+      - Townsquare
+      - Triton Digital
+      - WideOrbit
+    sources:
+      - https://www.radioworld.com/feed
+
+thought_leaders:
+  - George Sivulka
+  - Yoni Rechtman
+  - Elad Gil
+  - Martin Casado
+  - Ben Horowitz
+  - David Friedberg
+  - Nathaniel Whittemore
+  - Sam Lessin
+  - Slow Ventures
