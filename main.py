@@ -36,6 +36,42 @@ def fetch_article_text(url):
         print(f"Error fetching article text: {e}")
         return ""
 
+def scrape_webpage_links(url):
+    try:
+        response = requests.get(
+            url,
+            timeout=10,
+            headers={"User-Agent": "Mozilla/5.0"}
+        )
+
+        soup = BeautifulSoup(response.text, "html.parser")
+
+        links = []
+
+        for a in soup.find_all("a"):
+            text = a.get_text(strip=True)
+            href = a.get("href")
+
+            if not text or not href:
+                continue
+
+            if href.startswith("/"):
+                base_url = url.split("/")[0] + "//" + url.split("/")[2]
+                href = base_url + href
+
+            if href.startswith("http"):
+                links.append({
+                    "title": text,
+                    "link": href,
+                    "summary": text
+                })
+
+        return links[:20]
+
+    except Exception as e:
+        print(f"Error scraping webpage: {e}")
+        return []
+    
 # Load environment variables
 load_dotenv()
 
@@ -209,15 +245,25 @@ def generate_morning_brief(article_summaries):
 
     prompt = f"""
     You are preparing a morning intelligence brief for a private equity investor focused on:
-    - operational improvement
-    - AI transformation
-    - healthcare
-    - fragmented industries
+    - AI-enabled services
+    - operational transformation
+    - fragmented services industries
     - roll-ups
     - workflow automation
+    - vertical software + services convergence
+    - margin expansion
     - market structure shifts
 
-    Based on these article summaries:
+    Based on these structured article records:
+    Use the WATCHLIST, RELEVANCE SCORE, ARTICLE TYPE, COMPANIES, and THEMES fields to organize the brief.
+        Prioritize higher relevance scores.
+        Group insights by article type where useful.
+        Call out repeated companies or themes.
+        Avoid generic AI commentary.
+        Focus on specific investment implications.
+        Only make claims directly supported by the article text.
+        Do not infer operational details unless explicitly stated.
+        Separate evidence from interpretation.
 
     {combined_text}
 
@@ -229,16 +275,33 @@ def generate_morning_brief(article_summaries):
     - 3-5 bullets
     - only the most important insights
 
+    CAPITAL FLOWS / DEAL SIGNALS
+    - acquisitions
+    - fundraises
+    - new platforms
+    - sponsor activity
+    - roll-up activity
+    - strategic partnerships
+
     EMERGING THEMES
-    - identify patterns across articles
+    - identify repeated companies
+    - identify repeated themes
+    - identify repeated article types
     - explain WHY they matter
+    - call out where multiple articles reinforce the same pattern
 
     INVESTING IMPLICATIONS
-    - implications for PE-backed businesses
-    - operational implications
-    - AI/workflow implications
-    - margin implications
-    - consolidation implications
+
+    For each major implication, use:
+
+    Observation:
+    - what happened
+
+    Evidence:
+    - what article(s), companies, or themes support it
+
+    Investor read-through:
+    - why it matters for sourcing, diligence, or value creation
 
     WHAT TO WATCH
     - important future signals
@@ -249,12 +312,23 @@ def generate_morning_brief(article_summaries):
     BEST DILIGENCE QUESTIONS
     - 3-5 highly insightful investor questions
 
+    SOURCE ARTICLES
+    - include the most important source articles referenced
+    - show:
+        article title
+        watchlist
+        relevance score
+        article type
+
     Make it:
     - concise
     - sharp
+    - highly specific
+    - evidence-based
     - non-generic
-    - intellectually differentiated
+    - avoid buzzwords unless grounded in source material
     - easy to skim
+    - optimized for an investor, not a general audience
     """
 
     response = client.chat.completions.create(
@@ -278,10 +352,17 @@ for industry in config["watchlists"]:
         print(f"\nSource: {source}")
         print(f"Entries found: {len(feed.entries)}")
 
-        for entry in feed.entries[:3]:
+        if len(feed.entries) > 0:
+            entries = feed.entries[:3]
+        else:
+            print("No RSS entries found. Trying webpage scrape...")
+            entries = scrape_webpage_links(source)[:3]
+            print(f"Scraped links found: {len(entries)}")
+
+        for entry in entries:
 
             title = clean_text(entry.get("title", ""))
-            link = entry.get("link", "")
+            link = entry.get("link", entry.get("href", ""))
 
             print(f"\nARTICLE: {title}")
             print(link)
@@ -341,13 +422,28 @@ for industry in config["watchlists"]:
             save_article(article_record)
 
             formatted_summary = f"""
-ARTICLE: {title}
+                ARTICLE: {title}
 
-LINK: {link}
+                LINK: {link}
 
-SUMMARY:
-{summary}
-"""
+                WATCHLIST:
+                {industry["name"]}
+
+                RELEVANCE SCORE:
+                {score}
+
+                ARTICLE TYPE:
+                {metadata.get("article_type", "other")}
+
+                COMPANIES:
+                {", ".join(metadata.get("companies", []))}
+
+                THEMES:
+                {", ".join(metadata.get("themes", []))}
+
+                SUMMARY:
+                {summary}
+                """
 
             all_summaries.append(formatted_summary)
 
@@ -367,7 +463,8 @@ print("\nSENDING EMAIL...\n")
 
 send_email(
     subject="Morning Intelligence Brief",
-    content=morning_brief
+    body=morning_brief,
+    to_email="rachelparsons1234@gmail.com"
 )
 
 print("\nDONE.\n")
